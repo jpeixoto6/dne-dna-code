@@ -1,6 +1,4 @@
 [iosxe:vars]
-ansible_user=admin
-ansible_password=Cisco123
 user_pod = mypod
 pod_number = 10
 netconf_port = 830
