@@ -1,4 +1,5 @@
 [iosxe:vars]
+ansible-user=ec2-user
 user_pod = mypod
 pod_number = 10
 netconf_port = 830
