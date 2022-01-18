@@ -1,30 +1,39 @@
-[all:vars]
-ansible_python_interpreter="/usr/bin/env python"
-
 [iosxe:vars]
-# Fill in a unique pod name with no spaces
+ansible_user=admin
+ansible_password=Cisco123
 user_pod = mypod
-# Fill in a pod number between 10 and 250
 pod_number = 10
-
-# The next two variables are only required for the DevNet Express Mission. When you get to the mission it will instruct
-# you to fill these in. If you are using the sandbox lab, you may ignore them.
-
-# Fill in your Webex Teams auth token from https://developer.webex.com/getting-started.html
-webex_token = mytokenabcdef
-# Fill in your Webex Teams room id you wish to post to
-webex_room_id = roomIDabc123456defghi789jklmnopqr0
-
+netconf_port = 830
 
 [iosxe:children]
-# FYI - If you are in a DevNet Express please add a #
-# in front of sandbox and remove the # in front of express.
-sandbox
-#express
+cisco
 
-[sandbox]
-ios-xe-mgmt.cisco.com ansible_port=8181
+[cisco]
+rtr1 ansible_host=35.170.69.143 private_ip=172.16.78.240
+rtr2 ansible_host=34.236.238.2 private_ip=172.18.26.118
+rtr4 ansible_host=3.235.121.134 private_ip=172.18.66.119
+rtr3 ansible_host=3.227.247.96 private_ip=172.16.37.65
 
-[express]
-198.18.134.11  # dcloud pod router #1
-198.18.134.12  # dcloud pod router #2
+[cisco:vars]
+ansible_network_os=ios
+ansible_connection=network_cli
+
+
+
+[dc1]
+rtr1
+rtr3
+
+[dc2]
+rtr2
+rtr4
+
+[control]
+ansible-1 ansible_host=44.192.99.200 ansible_user=student1 private_ip=172.16.235.7 ansible_password=yHlrkSu4qWanC7
+
+[network:children]
+iosxe
+[network:vars]
+restore_inventory="Workshop Inventory"
+restore_credential="Workshop Credential"
+restore_project="Workshop Project"
